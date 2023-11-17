@@ -32,31 +32,28 @@ const ModalWindow: FC<ModalWindowProps> = ({onClick}) => {
                 password: meaningInputPassword
             })
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data,"Обработка полученных данных");
-            })
+            .then((response) => response.json()) // Сюда не попадем, тк мы отправляем POST запрос к google.com
             .catch(() => {
                 const mackData = {
                     name: "Alex",
                     age: 20
-                }
+                };
+                onClick()
             });
 
         setMeaningInputText('');
         setMeaningInputPassword('');
-       // onClick()
     }
 
     return(
-        <div  className={style.block} >
+        <div className={style.block}>
             <div className={style.informationBlock}>
                 <button className={style.buttonCross} onClick={onClick}>
-                    <img  src={crossImg} width="30" height="30" />
+                    <img src={crossImg} width="30" height="30" />
                 </button>
                <div className={style.form}>
-                   <Input value={meaningInputText} onChange={onchangeText} type="text" />
-                   <Input  value={meaningInputPassword} onChange={onchangePassword} type="password" />
+                   <Input placeholder="Email" value={meaningInputText} onChange={onchangeText} type="email" />
+                   <Input placeholder="Password"  value={meaningInputPassword} onChange={onchangePassword} type="password" />
                    <Button onClick={sendForm}>Войти</Button>
                 </div>
             </div>
