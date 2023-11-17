@@ -8,10 +8,19 @@ type ModalWindowProps = {
     onClick: (event: MouseEvent<HTMLElement>) => void;
 }
 
+type MackData = {
+    name?: string;
+    age?: number;
+}
+
+
+
 const ModalWindow: FC<ModalWindowProps> = ({onClick}) => {
+
 
     const [meaningInputText, setMeaningInputText] = useState('');
     const [meaningInputPassword, setMeaningInputPassword] = useState('')
+    const [dataCatcn, setDataCatcn] = useState<MackData>({})
 
     console.log('meaningInputText',meaningInputText);
     console.log('meaningInputPassword',meaningInputPassword)
@@ -38,7 +47,9 @@ const ModalWindow: FC<ModalWindowProps> = ({onClick}) => {
                     name: "Alex",
                     age: 20
                 };
-                onClick()
+                setDataCatcn(mackData )
+
+
             });
 
         setMeaningInputText('');
@@ -52,9 +63,12 @@ const ModalWindow: FC<ModalWindowProps> = ({onClick}) => {
                     <img src={crossImg} width="30" height="30" />
                 </button>
                <div className={style.form}>
-                   <Input placeholder="Email" value={meaningInputText} onChange={onchangeText} type="email" />
-                   <Input placeholder="Password"  value={meaningInputPassword} onChange={onchangePassword} type="password" />
-                   <Button onClick={sendForm}>Войти</Button>
+                   {Object.keys(dataCatcn).length !== 0? <p>Hello, {dataCatcn.name}</p>
+                       :<>
+                           <Input placeholder="Email" value={meaningInputText} onChange={onchangeText} type="email" />
+                           <Input placeholder="Password"  value={meaningInputPassword} onChange={onchangePassword} type="password" />
+                           <Button onClick={sendForm}>Войти</Button>
+                       </>}
                 </div>
             </div>
             <div onClick={onClick} className={style.blockBackground} />
